@@ -1,4 +1,4 @@
-package pgs.example.wiremock.model;
+package example.wiremock.model;
 
 import lombok.Getter;
 import lombok.Setter;

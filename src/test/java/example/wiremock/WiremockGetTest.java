@@ -1,4 +1,4 @@
-package pgs.example.wiremock;
+package example.wiremock;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.hamcrest.Matchers;
@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.baseURI;
@@ -18,15 +19,17 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WiremockGetTests {
+public class WiremockGetTest {
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(8089);
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Before
     public void setUp() throws Exception {
         baseURI = "http://localhost:8089";
-        String url = "/pgs/.*";
+        String url = "/test/.*";
 
         givenThat(get(urlMatching(url)).atPriority(9)
                 .willReturn(aResponse()
@@ -34,8 +37,8 @@ public class WiremockGetTests {
     }
 
     @Test
-    public void getResponse_success() {
-        String url = "/pgs/resource";
+    public void getResponseWithSuccess() {
+        String url = "/test/resource";
 
         givenThat(get(urlEqualTo(url))
                 .willReturn(aResponse()
@@ -46,8 +49,8 @@ public class WiremockGetTests {
     }
 
     @Test
-    public void getResponse_successWithBody() {
-        String url = "/pgs/resource/1";
+    public void getResponseWithSuccessWithBody() {
+        String url = "/test/resource/1";
         String sampleResponse = "{\n" +
                 "  \"id\": 1,\n" +
                 "  \"name\": \"Someone\",\n" +
@@ -63,8 +66,8 @@ public class WiremockGetTests {
     }
 
     @Test
-    public void getResponse_successWithBody_name() {
-        String url = "/pgs/resource/1";
+    public void getResponseWithSuccessWithBodyForName() {
+        String url = "/test/resource/1";
         String name = "Someone";
         String sampleResponse = "{\n" +
                 "  \"id\": 1,\n" +
@@ -81,8 +84,8 @@ public class WiremockGetTests {
     }
 
     @Test
-    public void getResponse_successWithBody_id() {
-        String url = "/pgs/resource/1";
+    public void getResponseWithSuccessWithBodyForId() {
+        String url = "/test/resource/1";
         Integer id = 5;
         String sampleResponse = "{\n" +
                 "  \"id\": 5,\n" +
@@ -99,8 +102,8 @@ public class WiremockGetTests {
     }
 
     @Test
-    public void getResponse_higherPriority_status400() {
-        String url = "/pgs/invalid";
+    public void getResponseForHigherPriorityWithStatus400() {
+        String url = "/test/invalid";
 
         givenThat(get(urlEqualTo(url)).atPriority(10)
                 .willReturn(aResponse()
