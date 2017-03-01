@@ -5,15 +5,21 @@ import example.wiremock.model.SampleRequest;
 import example.wiremock.model.SampleResponse;
 import io.restassured.mapper.ObjectMapperType;
 import org.hamcrest.Matchers;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import wiremock.com.fasterxml.jackson.core.JsonProcessingException;
 import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.baseURI;
@@ -94,5 +100,22 @@ public class WiremockPostTest {
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON.toString()).withBodyFile("sampleResponse1.json")));
 
         given().body(sampleRequest, ObjectMapperType.GSON).when().post(url).then().assertThat().statusCode(200).and().assertThat().body("name", is("Someone"));
+    }
+
+    @Test
+    public void postResponseWithSuccessForFileWithFullCompare() throws IOException {
+        String url = "/test/resource/1";
+        SampleRequest sampleRequest = new SampleRequest();
+        sampleRequest.setId(1);
+
+        givenThat(post(urlEqualTo(url)).withRequestBody(containing("\"id\":1"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", MediaType.APPLICATION_JSON.toString()).withBodyFile("sampleResponse1.json")));
+
+        JSONObject jsonObject = new JSONObject(given().body(sampleRequest, ObjectMapperType.GSON).when().post(url).body().print());
+        JSONObject expectedJson = new JSONObject(new String(Files.readAllBytes(Paths.get("src/test/resources/__files/sampleResponse1.json"))));
+
+        JSONAssert.assertEquals(expectedJson, jsonObject, true);
     }
 }
