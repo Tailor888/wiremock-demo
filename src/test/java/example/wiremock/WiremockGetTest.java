@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.baseURI;
@@ -23,8 +22,6 @@ public class WiremockGetTest {
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(8089);
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
     public void setUp() throws Exception {
