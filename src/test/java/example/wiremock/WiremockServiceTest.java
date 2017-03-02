@@ -60,6 +60,7 @@ public class WiremockServiceTest {
 
         SampleResponse receivedResponse = sampleService.getSampleResponse();
 
+        //verify(getRequestedFor(urlEqualTo(url + "fail")));
         verify(getRequestedFor(urlEqualTo(url)));
         assertEquals("Somewhere", receivedResponse.getCity());
     }

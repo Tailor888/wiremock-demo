@@ -116,6 +116,8 @@ public class WiremockPostTest {
         JSONObject jsonObject = new JSONObject(given().body(sampleRequest, ObjectMapperType.GSON).when().post(url).body().print());
         JSONObject expectedJson = new JSONObject(new String(Files.readAllBytes(Paths.get("src/test/resources/__files/sampleResponse1.json"))));
 
+        verify(postRequestedFor(urlEqualTo(url)).withRequestBody(containing("\"id\":1")));
+        //verify(postRequestedFor(urlEqualTo(url)).withRequestBody(containing("\"id\":2")));
         JSONAssert.assertEquals(expectedJson, jsonObject, true);
     }
 }
