@@ -9,11 +9,8 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import wiremock.com.fasterxml.jackson.core.JsonProcessingException;
 import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,8 +26,6 @@ import static org.hamcrest.Matchers.is;
 /**
  * Created by pkrawiec on 1/30/2017.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class WiremockPostTest {
 
     private ObjectMapper objectMapper = new ObjectMapper();

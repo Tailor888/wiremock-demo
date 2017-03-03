@@ -5,9 +5,6 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,8 +15,6 @@ import static io.restassured.RestAssured.given;
 /**
  * Created by pkrawiec on 3/2/2017.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class WiremockDelay {
 
     @Rule

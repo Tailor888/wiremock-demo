@@ -4,10 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.MessageFormat;
 
@@ -19,8 +16,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by pkrawiec on 3/1/2017.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class WiremockMultipleTest {
 
     @Rule

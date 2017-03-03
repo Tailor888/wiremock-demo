@@ -5,10 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.baseURI;
@@ -16,8 +13,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class WiremockGetTest {
 
     @Rule
